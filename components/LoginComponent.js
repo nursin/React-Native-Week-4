@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { View, StyleSheet, ScrollView, Image } from "react-native";
-import { Input, Button, CheckBox, Icon } from "react-native-elements";
+import { View, StyleSheet, ScrollView, Image, Text } from "react-native";
+import { Input, Button, CheckBox, Icon, SearchBar } from "react-native-elements";
 import * as SecureStore from 'expo-secure-store';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -252,6 +252,13 @@ class RegisterTab extends Component {
 }
 
 class searchTab extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      search: ''
+    };
+  }
+
   static navigationOptions = {
     title: 'Search',
     tabBarIcon: ({ tintColor }) => (
@@ -263,11 +270,24 @@ class searchTab extends Component {
     )
   }
 
-  render() {
-    return (
-      <ScrollView>
+  updateSearch = (search) => {
+    this.setState({search});
+  };
 
-      </ScrollView>
+  render() {
+    const {search} = this.state;
+    return (
+      <SearchBar
+        placeholder='Type Here ...'
+        onChangeText={this.updateSearch}
+        value={search}
+        searchIcon={
+          {size: 28,
+          color:'black'}
+        }
+        lightTheme={true}
+        inputStyle={{color:'black'}}
+      />
     );
   }
 }
